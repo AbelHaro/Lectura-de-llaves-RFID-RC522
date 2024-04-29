@@ -1,7 +1,7 @@
 import sqlite3
 from flask import Flask, request, jsonify
 import requests
-from ignore.ubidots import URL_UBIDOTS, TOKEN
+from ignore.ubidots import URL_UBIDOTS, TOKEN_UBIDOTS
 
 def connect_to_db():
     """
@@ -56,12 +56,12 @@ def insert_user_register(user):
         dict: Dictionary containing the status of the operation and error message (if any).
               Keys:
               - 'api_status': Boolean indicating the success of the operation.
-              - 'error': Error message if an error occurred during the operation.
+              - 'error': Error message if an error occurred during the operation.v
+              - 'ubidots_status': HTTP status code of the request to Ubidots.
               - 'UID': Unique ID of the user.
               - 'user_creation_tstamp': Timestamp of user creation.
-              - 'ubidots_status': HTTP status code of the request to Ubidots.
     """
-    inserted_user = {'api_status': False, 'error': None, 'ubidots_status': False}
+    inserted_user = {'api_status': False, 'error': None, 'ubidots_status': False, 'UID': None, 'user_creation_tstamp': None}
     try:
         conn = connect_to_db()
         conn.row_factory = sqlite3.Row
@@ -104,12 +104,12 @@ def insert_time_registry(time_registry):
               Keys:
               - 'api_status': Boolean indicating the success of the operation.
               - 'error': Error message if an error occurred during the operation.
+              - 'ubidots_status': HTTP status code of the request to Ubidots.
               - 'user_registry_tstamp': Timestamp of user registry.
               - 'UID': Unique ID of the user associated with the time registry.
               - 'id': ID of the time registry record.
-              - 'ubidots_status': HTTP status code of the request to Ubidots.
     """
-    inserted_time_registry = {'api_status': False, 'error': None, 'ubidots_status': False}
+    inserted_time_registry = {'api_status': False, 'error': None, 'ubidots_status': False, 'user_registry_tstamp': None, 'UID': None, 'id': None}
     try:
         conn = connect_to_db()
         conn.row_factory = sqlite3.Row
@@ -269,7 +269,7 @@ def add_user_ubidots(uid):
     }
     request = requests.post(
         URL_UBIDOTS,
-        headers={'X-Auth-Token': TOKEN, 'Content-Type': 'application/json'},
+        headers={'X-Auth-Token': TOKEN_UBIDOTS, 'Content-Type': 'application/json'},
         json=data
     )
     return request.status_code
@@ -296,7 +296,7 @@ def add_time_registry_ubidots(uid, is_registered):
     }
     request = requests.post(
         URL_UBIDOTS,
-        headers={'X-Auth-Token': TOKEN, 'Content-Type': 'application/json'},
+        headers={'X-Auth-Token': TOKEN_UBIDOTS, 'Content-Type': 'application/json'},
         json=data
     )
     return request.status_code
