@@ -1,0 +1,65 @@
+\documentclass{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[spanish]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+
+\begin{document}
+\begin{titlepage}
+\centering
+{\bfseries\LARGE Universidad Politécnica de Valencia\par}
+\vspace{1cm}
+{\scshape\Large Escuela Técnica Superior de Ingeniería Informática\par}
+\vspace{3cm}
+{\scshape\Huge Lectura de llaves RFID-RC522 \par}
+\vspace{3cm}
+{\itshape\Large Proyecto Internet de las Cosas\par}
+\vfill
+{\Large Abel Haro Armero \par}
+\vfill
+{\Large Junio 2024 \par}
+\date{}
+\end{titlepage}
+
+
+
+\tableofcontents
+
+
+\section{Introducción}
+
+Este proyecto consiste en desarrollar un sistema de control de acceso utilizando tecnología RFID (lector RFID-RC522). El sistema permitirá registrar usuarios y controlar su acceso mediante llaves y tarjetas RFID. Para el cambio de modo del lector entre registro o acceso se utilizará comunicación Bluetooth. Los usuarios registrados y los accesos se mantendrán en una base de datos accesible mediante una API REST dentro de un contenedor. Para la visualización se utilizará Ubidots.
+
+\section{Hardware utilizado}
+
+\section{Software utilizado}
+\subsection{Microcontrolador}
+Se empleó el microcontrolador Raspberry Pi Pico WH utilizando el lenguaje Micropython. Se hizo uso de las \href{https://github.com/micropython/micropython/tree/master/examples/bluetooth}{bibliotecas BLE} (Bluetooth Low Energy) para establecer y gestionar la comunicación Bluetooth. Para la lectura de llaves y tarjetas basadas en radiofrecuencia se utilizó la \href{https://github.com/danjperron/micropython-mfrc522/blob/master/mfrc522.py}{bibilioteca MFRC522}. En la comunicación con el servidor se implementó una API REST que permite el envío y recepción de datos de manera estructurada. Por último, se hizo uso de la librería machine para encender y apagar LEDs.
+
+\subsection{Servidor}
+En la implementación del servidor se emplea un contenedor Docker con la imagen base de Ubuntu. A la imagen se le instala Python junto con el paquete Flask para gestionar la lógica del servidor mediante solicitudes HTTP. Para la persistencia de datos se emplea un volumen de Docker junto con una base de datos SQLite.
+
+
+\subsection{Ubidots}
+Para la plataforma de se ha utilizado Ubidots mediante una cuenta STEM. Ubidots permite la visualización de datos en tiempo real y un envío de 1 req/s.
+
+\section{Pasos para realizar el proyecto}
+Para la realización del pr
+\subsection{Paso 1: Preintstalación de software necesario}
+
+\subsection{Paso 2: Montaje circuito}
+\section{Problemas encontrados}
+\subsection{Problema 1} 
+\subsection{Problema 2}
+\section{Referencias}
+\end{document}
