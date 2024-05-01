@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.6.2)  1 MAY 2024 20:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.6.2)  1 MAY 2024 20:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -288,7 +288,10 @@ File: l3backend-pdftex.def 2022-02-07 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count287
 \l__pdf_internal_box=\box52
 )
-No file "Lectura de llaves RFID-RC522".aux.
+(Lectura de llaves RFID-RC522.aux
+LaTeX Info: Redefining \. on input line 25.
+LaTeX Info: Redefining \% on input line 25.
+)
 \openout1 = `"Lectura de llaves RFID-RC522.aux"'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
@@ -311,6 +314,7 @@ LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 17.
 LaTeX Font Info:    ... okay on input line 17.
 LaTeX Info: Redefining \. on input line 17.
 LaTeX Info: Redefining \% on input line 17.
+
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -390,13 +394,18 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 17.
 LaTeX Info: Redefining \pageref on input line 17.
 LaTeX Info: Redefining \nameref on input line 17.
+
+(Lectura de llaves RFID-RC522.out) (Lectura de llaves RFID-RC522.out)
 \@outlinefile=\write3
 \openout3 = `"Lectura de llaves RFID-RC522.out"'.
 
-
-[1
+ [1
 
 {C:/Users/Usuario/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
+(Lectura de llaves RFID-RC522.toc
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+)
 \tf@toc=\write4
 \openout4 = `"Lectura de llaves RFID-RC522.toc"'.
 
@@ -405,38 +414,33 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.65 \end{document}
-                    [1] (Lectura de llaves RFID-RC522.aux
+l.58 \subsection
+                {Paso 1: Preintstalación de software necesario} [1] [2]
+(Lectura de llaves RFID-RC522.aux
 LaTeX Info: Redefining \. on input line 25.
 LaTeX Info: Redefining \% on input line 25.
 )
-
-Package rerunfilecheck Warning: File `"Lectura de llaves RFID-RC522".out' has c
-hanged.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `"Lectura de llaves RFID-RC522".out'
-:
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  3650392EDDC2496401BE67EC53759646;1873.
+Package rerunfilecheck Info: File `"Lectura de llaves RFID-RC522".out' has not 
+changed.
+(rerunfilecheck)             Checksum: 3650392EDDC2496401BE67EC53759646;1873.
  ) 
 Here is how much of TeX's memory you used:
- 10607 strings out of 478582
- 166313 string characters out of 2854154
- 483572 words of memory out of 3000000
- 28674 multiletter control sequences out of 15000+600000
- 472680 words of font info for 39 fonts, out of 8000000 for 9000
+ 10636 strings out of 478582
+ 167221 string characters out of 2854154
+ 486850 words of memory out of 3000000
+ 28693 multiletter control sequences out of 15000+600000
+ 473134 words of font info for 41 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,5n,63p,732b,370s stack positions out of 10000i,1000n,20000p,200000b,80000s
-<C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Progra
-m Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Program Files/MiK
-TeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX/fonts/typ
-e1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/ams
-fonts/cm/cmti12.pfb>
-Output written on "Lectura de llaves RFID-RC522.pdf" (2 pages, 80409 bytes).
+ 60i,5n,63p,732b,380s stack positions out of 10000i,1000n,20000p,200000b,80000s
+<C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Progra
+m Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKT
+eX/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Program Files/MiKTeX/fonts/ty
+pe1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/am
+sfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmt
+i12.pfb>
+Output written on "Lectura de llaves RFID-RC522.pdf" (3 pages, 105100 bytes).
 PDF statistics:
- 59 PDF objects out of 1000 (max. 8388607)
- 16 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 121 PDF objects out of 1000 (max. 8388607)
+ 17 named destinations out of 1000 (max. 500000)
+ 105 words of extra memory for PDF output out of 10000 (max. 10000000)
 
