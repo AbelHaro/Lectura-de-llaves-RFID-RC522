@@ -12,7 +12,8 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
-
+\usepackage{textgreek}
+\usepackage{verbatim}
 
 \begin{document}
 \begin{titlepage}
@@ -38,24 +39,75 @@
 
 \section{Introducción}
 
-Este proyecto consiste en desarrollar un sistema de control de acceso utilizando tecnología RFID (lector RFID-RC522). El sistema permitirá registrar usuarios y controlar su acceso mediante llaves y tarjetas RFID. Para el cambio de modo del lector entre registro o acceso se utilizará comunicación Bluetooth. Los usuarios registrados y los accesos se mantendrán en una base de datos accesible mediante una API REST dentro de un contenedor. Para la visualización se utilizará Ubidots.
+Este proyecto consiste en desarrollar un sistema de control de acceso utilizando tecnología RFID (lector RFID-RC522). El sistema permitirá registrar usuarios y controlar su acceso mediante llaves y tarjetas RFID. Para el cambio de modo del lector, entre registro o acceso, se utilizará comunicación Bluetooth. Los usuarios registrados y los accesos se mantendrán en una base de datos accesible mediante una API REST dentro de un contenedor. Para la visualización se utilizará Ubidots.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\linewidth]{../images/esquema_proyecto.png}
+\caption{\label{fig:esquema red}Esquema del proyecto.}
+\end{figure}
 
 \section{Hardware utilizado}
+Para el proyecto se ha utilizado el siguiente hardware:
+\begin{itemize}
+	\item Microcontrolador Raspberry Pi Pico WH
+	\item Lector de radiofrecuencia RFID-RC522
+	\item Protoboard
+	\item Led tricolor
+	\item Cables Dupont Hembra-Macho x5
+	\item Cables Dupont Macho-Macho x4
+	\item Resistencia de 500\textOmega\ x2
+	\item Ordenador
+	\item Móvil
+
+\end{itemize}
 
 \section{Software utilizado}
 \subsection{Microcontrolador}
-Se empleó el microcontrolador Raspberry Pi Pico WH utilizando el lenguaje Micropython. Se hizo uso de las \href{https://github.com/micropython/micropython/tree/master/examples/bluetooth}{bibliotecas BLE} (Bluetooth Low Energy) para establecer y gestionar la comunicación Bluetooth. Para la lectura de llaves y tarjetas basadas en radiofrecuencia se utilizó la \href{https://github.com/danjperron/micropython-mfrc522/blob/master/mfrc522.py}{bibilioteca MFRC522}. En la comunicación con el servidor se implementó una API REST que permite el envío y recepción de datos de manera estructurada. Por último, se hizo uso de la librería machine para encender y apagar LEDs.
+Se empleó el microcontrolador Raspberry Pi Pico WH utilizando el lenguaje Micropython. Se hizo uso de las \href{https://github.com/micropython/micropython/tree/master/examples/bluetooth}{bibliotecas BLE} (Bluetooth Low Energy) para establecer y gestionar la comunicación Bluetooth en el microcontrolador. Para el dispositivo móvil se utilizó la aplicación \href{https://play.google.com/store/apps/details?id=de.kai_morich.serial_usb_terminal&pcampaignid=web_share}{Serial Bluetooth Terminal} disponible en Play Store. Para la lectura de llaves y tarjetas basadas en radiofrecuencia se utilizó la \href{https://github.com/danjperron/micropython-mfrc522/blob/master/mfrc522.py}{bibilioteca MFRC522}. En la comunicación con el servidor se implementó una API REST que permite el envío y recepción de datos de manera estructurada. Por último, se hizo uso de la librería machine para encender y apagar LEDs.
 
 \subsection{Servidor}
 En la implementación del servidor se emplea un contenedor Docker con la imagen base de Ubuntu. A la imagen se le instala Python junto con el paquete Flask para gestionar la lógica del servidor mediante solicitudes HTTP. Para la persistencia de datos se emplea un volumen de Docker junto con una base de datos SQLite.
 
 
 \subsection{Ubidots}
-Para la plataforma de se ha utilizado Ubidots mediante una cuenta STEM. Ubidots permite la visualización de datos en tiempo real y un envío de 1 req/s.
+Para la plataforma de se ha utilizado \href{https://stem.ubidots.com/}{Ubidots} mediante una cuenta STEM. Ubidots permite la visualización de datos en tiempo real y un envío de 1 req/s.
 
 \section{Pasos para realizar el proyecto}
-Para la realización del pr
+Para la realización del proyecto se deben seguir los siguientes pasos.
 \subsection{Paso 1: Preintstalación de software necesario}
+\textbf{Instalaciones de aplicaciones en el servidor:}
+\begin{enumerate}
+    \item Instalar \href{https://thonny.org/}{Thonny}.
+    \item Instalar \href{https://code.visualstudio.com/download}{Visual Studio Code}.
+    \item Instalar \href{https://docs.docker.com/get-docker/}{Docker}.
+    \item Instalar \href{https://kinsta.com/es/base-de-conocimiento/instalar-python/}{intérprete de Python}.
+\end{enumerate}
+
+\textbf{Instalación de librerías en el servidor:}
+\begin{enumerate}
+    \item Introducir el siguiente comando desde el terminal del servidor para instalar Flask:
+    \begin{verbatim}
+    pip install Flask
+    \end{verbatim}
+\end{enumerate}
+
+\textbf{Instalación de archivos en la Raspberry Pi Pico WH:}
+\begin{enumerate}
+	\item Instalar firmware de MicroPython:
+		\begin{enumerate}
+			\item Introducir el USB en el ordenador mientras se apreta el boton BOOTSEL.
+			\item Abrir Thonny y realizar los siguientes pasos:
+			\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.8\linewidth]{../images/instalacion_firmware.png}
+			\caption{\label{fig:instalación firmware}Pasos para la instalación del firmware.}
+			\end{figure}
+		\end{enumerate}
+			\item Copiar el contenido de la carpeta 'microcontrolador' del proyecto en la Raspberry Pi Pico WH.
+\end{enumerate}
+
+	
 
 \subsection{Paso 2: Montaje circuito}
 \section{Problemas encontrados}

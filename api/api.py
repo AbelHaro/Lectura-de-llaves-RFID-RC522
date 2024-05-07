@@ -1,7 +1,7 @@
 import sqlite3
 from flask import Flask, request, jsonify
 import requests
-from ignore.ubidots import URL_UBIDOTS, TOKEN_UBIDOTS
+from ubidots import URL_UBIDOTS, TOKEN_UBIDOTS
 
 def connect_to_db():
     """
@@ -120,15 +120,14 @@ def insert_time_registry(time_registry):
         if len(rows) == 0:
             inserted_time_registry['error'] = "User does not exist, please create it first."
             return inserted_time_registry
-        
-        #The user exists, insert the time_registry
-        cur.execute("INSERT INTO time_registry (user_registry_tstamp, UID) VALUES (?, ?)",
-                    (time_registry['user_registry_tstamp'], time_registry['UID']) )
-        conn.commit()
-        
-        query = get_time_registry_by_uid(time_registry['UID'])
-        inserted_time_registry.update(query[len(query)-1])
-        inserted_time_registry['api_status'] = True
+        else: #The user exists, insert the time_registry
+            cur.execute("INSERT INTO time_registry (user_registry_tstamp, UID) VALUES (?, ?)",
+                        (time_registry['user_registry_tstamp'], time_registry['UID']) )
+            conn.commit()
+            
+            query = get_time_registry_by_uid(time_registry['UID'])
+            inserted_time_registry.update(query[len(query)-1])
+            inserted_time_registry['api_status'] = True
     except:
         conn().rollback()
     finally:

@@ -9,8 +9,8 @@ wifi.connect()
 
 uid = '01'
     
-print(sender.add_user_register(uid))
-print(sender.add_time_registry(uid))
+#print(sender.add_user_register(uid))
+#print(sender.add_time_registry(uid))
 
 # try:
 #     while True:
@@ -22,12 +22,12 @@ print(sender.add_time_registry(uid))
 # except KeyboardInterrupt:
 #     print('Programa abortado con CTRL+C desde main.py')
 
-# try:
-#     while True:
-#         led.blink_led(sensor.read_sensor()['api_status'])
-#         time.sleep(1)
-# except KeyboardInterrupt:
-#     print('Programa abortado con CTRL+C desde main.py')
+try:
+    while True:
+        led.blink_led(sensor.read_sensor()['api_status'])
+        time.sleep(1)
+except KeyboardInterrupt:
+    print('Programa abortado con CTRL+C desde main.py')
     
 
 
