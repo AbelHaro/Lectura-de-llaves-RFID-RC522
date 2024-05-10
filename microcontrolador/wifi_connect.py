@@ -2,8 +2,8 @@ import network  # Module for network management
 import time  # Module for time-related functions
 
 # Wi-Fi credentials
-ssid = 'Livebox6-9580'  # SSID of the Wi-Fi network
-password = '9FirGpr3qmqA'  # Password of the Wi-Fi network
+ssid = ''  # SSID of the Wi-Fi network
+password = ''  # Password of the Wi-Fi network
 
 def connect():
     """
