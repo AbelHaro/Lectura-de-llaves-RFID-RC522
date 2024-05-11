@@ -87,7 +87,6 @@ def insert_user_register(user):
         conn.rollback()
     finally:
         conn.close()
-        print(inserted_user)
     return inserted_user
 
 def insert_time_registry(time_registry):
@@ -334,5 +333,5 @@ if __name__ == "__main__":
         time_registry = request.get_json()
         return jsonify(insert_time_registry(time_registry))
 
-    app.debug = True
+    app.debug = False
     app.run(host="0.0.0.0")

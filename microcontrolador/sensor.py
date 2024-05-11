@@ -6,7 +6,7 @@ import data_sending_api as sender  # Custom API module for data sending
 
 # Initialize Bluetooth Low Energy (BLE) interface and Simple Peripheral
 ble = bluetooth.BLE()
-sp = BLESimplePeripheral(ble)
+sp = BLESimplePeripheral(ble, name="Pico WH")
 
 # Default mode for RFID sensor operation
 MODE = 'ADD_USER_REGISTER'  # Default mode is to add user registration
