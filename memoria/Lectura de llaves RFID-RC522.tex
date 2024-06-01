@@ -18,8 +18,39 @@
 \usepackage{subcaption}
 \usepackage{float}
 \usepackage{array}
+\usepackage{listings}
+\usepackage{xcolor}
 
 \begin{document}
+
+\definecolor{background}{rgb}{0.95,0.95,0.92}  % Light gray background color
+
+\lstset{ 
+  language=Python,                % the language of the code
+  basicstyle=\ttfamily\small,     % the size of the fonts that are used for the code
+  numbers=left,                   % where to put the line-numbers
+  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+  stepnumber=1,                   % the step between two line-numbers. If it's 1, each line will be numbered
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  frame=single,                   % adds a frame around the code
+  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not black text (e.g. comments (green here))
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+  title=\lstname,                 % show the filename of files included with \lstinputlisting; also try caption instead of title
+  keywordstyle=\color{blue},      % keyword style
+  commentstyle=\color{gray},      % comment style, changed to magenta for better readability
+  stringstyle=\color{red},        % string literal style
+  escapeinside={\%*}{*)},         % if you want to add LaTeX within your code
+  morekeywords={*,...}            % if you want to add more keywords to the set
+}
+
+
 \begin{titlepage}
 \centering
 {\bfseries\LARGE Universidad Politécnica de Valencia\par}
@@ -40,13 +71,15 @@
 
 \tableofcontents
 
+\newpage
+
 
 \section{Introducción}
 
 Este proyecto consiste en desarrollar un sistema de control de acceso utilizando tecnología RFID (lector RFID-RC522).
 El sistema permitirá registrar usuarios y controlar su acceso mediante llaves y tarjetas RFID. Para el cambio de modo del lector, entre registro o acceso, se utilizará comunicación Bluetooth. Los usuarios registrados y los accesos se mantendrán en una base de datos accesible mediante una API REST dentro de un contenedor. Para la visualización se utilizará Ubidots.
 
-\begin{figure}[ht!]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.9\linewidth]{../images/esquema_proyecto.png}
 \caption{\label{fig:esquema red}Esquema del proyecto.}
@@ -55,7 +88,7 @@ El sistema permitirá registrar usuarios y controlar su acceso mediante llaves y
 \section{Hardware utilizado}
 Para el proyecto se ha utilizado el siguiente hardware:
 
-\begin{figure}[!ht]
+\begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{../images/picowh.png}
@@ -70,7 +103,7 @@ Para el proyecto se ha utilizado el siguiente hardware:
 	\end{subfigure}
 \end{figure}
 
-\begin{figure}[!ht]
+\begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{../images/protoboard.png}
@@ -85,7 +118,7 @@ Para el proyecto se ha utilizado el siguiente hardware:
 	\end{subfigure}
 \end{figure}
 
-\begin{figure}[!ht]
+\begin{figure}[H]
 	\centering
 	\begin{subfigure}[b]{0.3\textwidth}
 		\includegraphics[width=\textwidth]{../images/cable_mm.jpg}
@@ -143,6 +176,7 @@ Para la realización del proyecto se deben seguir los siguientes pasos.
 			\end{figure}
 		\end{enumerate}
 			\item Copiar el contenido de la carpeta \texttt{``microcontrolador''} del proyecto en la Raspberry Pi Pico WH.
+			\item Configurar las variables \texttt{``ssid''} y \texttt{``password''} dentro del archivo \texttt{``microcontrolador/wifi\_connect.py''} con el \texttt{ssid} y \texttt{password} de tu red.
 \end{enumerate}
 
 \textbf{Resgistro y configuración de Ubidots:}
@@ -174,28 +208,31 @@ Para la realización del proyecto se deben seguir los siguientes pasos.
 Conectar el lector RFID-RC522 a la Raspberry Pi Pico WH siguiendo la siguiente tabla:
 
 \begin{center}
-\begin{tabular}{|c|c|}
-	\hline
-	\textbf{Lector RFID-RC522} & \textbf{Raspberry Pi Pico WH} \\
-	\hline
-	VCC & 3.3V \\
-	\hline
-	RST & GP0 \\
-	\hline
-	GND & GND \\
-	\hline
-	IRQ & No conectado \\
-	\hline
-	MISO & GP4 \\
-	\hline
-	MOSI & GP3 \\
-	\hline
-	SCK & GP2 \\
-	\hline
-	SDA & GP1 \\
-	\hline
-\end{tabular}
+	\begin{tabular}{|c|c|}
+		\hline
+		\textbf{Lector RFID-RC522} & \textbf{Raspberry Pi Pico WH} \\
+		\hline
+		VCC & 3.3V \\
+		\hline
+		RST & GP0 \\
+		\hline
+		GND & GND \\
+		\hline
+		IRQ & No conectado \\
+		\hline
+		MISO & GP4 \\
+		\hline
+		MOSI & GP3 \\
+		\hline
+		SCK & GP2 \\
+		\hline
+		SDA & GP1 \\
+		\hline
+	\end{tabular}
+	\captionof{table}{Conexiones entre el lector RFID-RC522 y la Raspberry Pi Pico WH.}
 \end{center}
+
+\vspace{0.3cm}
 
 Conectar el LED tricolor KY-016 SP00 a la Raspberry Pi Pico WH siguiendo la siguiente tabla:
 \begin{center}
@@ -212,20 +249,523 @@ Conectar el LED tricolor KY-016 SP00 a la Raspberry Pi Pico WH siguiendo la sigu
 		- & GND \\
 		\hline
 	\end{tabular}
-	\end{center}
+	\captionof{table}{Conexiones entre el LED tricolor KY-016 SP00 y la Raspberry Pi Pico WH.}
+\end{center}
 
 
 
 El montaje del circuito debe quedar como se muestra en la siguiente figura:
-\begin{figure}
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=1\linewidth]{../images/esquema_de_conexionado.png}
 	\caption{\label{fig:circuito}Esquema de conexionado del proyecto.}
 \end{figure}
 
+\subsection{Paso 3: Ejecución del proyecto}
+Para ejecutar el proyecto se deben seguir los siguientes pasos:
+\begin{enumerate}
+	\item Conectar la Raspberry Pi Pico WH al ordenador.
+	\item Abrir Thonny y ejecutar el archivo \texttt{``microcontrolador/main.py''} en la Raspberry Pi Pico WH.
+	\item Ejecutar el archivo \texttt{``build.bat''} en el servidor.
+	\item Abrir Ubidots y visualizar los datos.
+	\item Realizar pruebas de registro y acceso.
+\end{enumerate}
+
+\section{Programación del proyecto}
+En esta sección se muestra en detalle el código de los archivos de los archivos principales del proyecto.
+
+\subsection{Microcontrolador}
+\subsubsection{main.py}
+Este archivo es el principal del microcontrolador.
+Contiene la configuración de la comunicación Bluetooth y la función \texttt{''on\_rx(data)''} donde se recibe el mensaje bluetooth para el cambio de modo de lectura.
+En la función \texttt{''main()''} se llama a la función \texttt{''wifi.connect()''} para conectar a la red WiFi y se inicia el bucle principal del programa.
+En el bucle se llama a la función \texttt{''sensor.read\_sensor()''} y recibe el uid de la llave o tarjeta RFID. 
+Si el modo es de registro se llama a la función \texttt{''sender.add\_user\_register(uid)''} y si es el modo de registro de entrada se llama a la función \texttt{''sensor.add\_time\_registry(uid)''}.
+Por último se llama a la función \texttt{''led.blink\_led(response['api\_status'])''} para encender el led tricolor en función de la respuesta de la API.
+
+\begin{lstlisting}
+	import bluetooth  # Bluetooth module
+	from ble.ble_simple_peripheral import BLESimplePeripheral  # BLE module
+	import time
+	import wifi_connect as wifi
+	import data_sending_api as sender
+	import sensor
+	import led_control as led
+	import ubidots
+	
+	# Initialize Bluetooth Low Energy (BLE) interface and Simple Peripheral
+	ble = bluetooth.BLE()
+	sp = BLESimplePeripheral(ble, name="Pico WH")
+	
+	# Default mode for RFID sensor operation
+	MODE = 'ADD_USER_REGISTER'  # Default mode is to add user registration
+	
+	def on_rx(data):
+		"""
+		Callback function for receiving data from BLE.
+	
+		Parameters:
+			data (bytes): Received data as bytes.
+	
+		Global Variables Modified:
+			MODE (str): Updated mode based on received data.
+		"""
+		global MODE  # Access global variable MODE within the function
+		print("Data received:", data)
+	
+		# Update mode based on received data
+		if data == b'ADD_USER_REGISTER\r\n':
+			MODE = 'ADD_USER_REGISTER'
+		elif data == b'ADD_TIME_REGISTRY\r\n':
+			MODE = 'ADD_TIME_REGISTRY'
+	
+	
+	if __name__ == '__main__':
+		# Connect to WiFi
+		wifi.connect()
+	
+		try:
+			if sp.is_connected():
+				sp.on_write(on_rx)  # Register callback for BLE data reception
+				
+			while True:
+				# Read UID from sensor
+				uid = sensor.read_sensor()
+				
+				# Determine mode and call appropriate API
+				if MODE == 'ADD_USER_REGISTER':
+					response = sender.add_user_register(uid)  # Call API to add user registration
+				elif MODE == 'ADD_TIME_REGISTRY':
+					response = sender.add_time_registry(uid)  # Call API to add time registry
+				else:
+					print('Error: Invalid mode')
+					raise Exception('Invalid mode detected')  # Raise an exception for invalid mode
+				
+				# Blink LED based on API response status
+				led.blink_led(response['api_status'])
+				time.sleep(1)
+		except KeyboardInterrupt:
+			print('Programa abortado con CTRL+C desde main.py')  # Handle keyboard interrupt
+	\end{lstlisting}
+	\captionof{figure}{Código del archivo \texttt{``microcontrolador/main.py''} del microcontrolador.}
+	
+\subsubsection{sensor.py}
+Este archivo contiene la función \texttt{''read\_sensor()''} que lee el sensor RFID y devuelve el uid de la llave o tarjeta RFID leída.
+\begin{lstlisting}
+from lib.mfrc522.mfrc522 import MFRC522  # RFID reader module
+import time  # Time-related functions
+import data_sending_api as sender  # Custom API module for data sending
+
+def read_sensor() -> str:
+    """
+    Function to read RFID sensor and perform actions based on the received data.
+
+    Returns:
+        str: UID from card or key readed.
+    """
+    # Initialize the MFRC522 RFID reader
+    lector = MFRC522(spi_id=0, sck=2, miso=4, mosi=3, cs=1, rst=0)
+
+    print("RFID sensor active...\n")
+
+    try:
+        i = 0
+        while True:
+            i = i + 1
+            print(str(i) + ' ' + MODE)  # Print iteration count and current mode
+
+            lector.init()  # Initialize the RFID reader
+            (stat, tag_type) = lector.request(lector.REQIDL)  # Request tag detection
+
+            if stat == lector.OK:
+                (stat, uid) = lector.SelectTagSN()  # Select detected tag
+                if stat == lector.OK:
+                    # Convert UID bytes to integer for identification
+                    identificador = int.from_bytes(bytes(uid), "little", False)
+                    print("UID: " + str(identificador))  # Print detected UID
+
+                    return str(identificador)  # Convert UID to string
+                
+            time.sleep(1)  # Sleep for 1 second between iterations
+
+    except KeyboardInterrupt:
+        print("Program terminated with CTRL+C from sensor.py")  # Handle keyboard interrupt
+\end{lstlisting}
+\captionof{figure}{Código del archivo \texttt{``microcontrolador/sensor.py''} del microcontrolador.}
+
+\subsubsection{data\_sending\_api.py}
+Este archivo contiene las funciones para enviar datos a la API REST del servidor.
+Se tienen las funciones \texttt{''add\_user\_register(uid)''} y \texttt{''add\_time\_registry(uid)''} para enviar los datos de registro de usuario y de acceso respectivamente.
+
+\begin{lstlisting}
+	import time  # Standard Python time module
+import ujson  # Module for handling JSON data
+import urequests as requests  # Module for making HTTP requests (alias for urequests)
+
+URL = 'http://192.168.1.2:8888/api/'
+URL_add_user_register = URL + 'user_register/add'
+URL_add_time_registry = URL + 'time_registry/add'
+URL_get_user_registered_by_uid = URL + 'user_register'
+
+def get_local_time() -> str:
+    """
+    Returns the timestamp formatted.
+    """
+    local_time = time.localtime()
+    formatted_time = "{:04d}-{:02d}-{:02d} {:02d}:{:02d}:{:02d}".format(
+    local_time[0],  # year
+    local_time[1],  # month
+    local_time[2],  # day
+    local_time[3],  # hour
+    local_time[4],  # minute
+    local_time[5]   # second
+    )
+    return str(formatted_time)
+
+def add_user_register(uid):
+    """
+    Adds the user to the database using a POST request.
+    
+    Parameters:
+        uid (str): The UID (Unique ID) of the user to be registered.
+    
+    Returns:
+        dict: A dictionary containing the response message from the server.
+    """
+     
+    data_sending = {
+        "UID": uid,
+        "user_creation_tstamp": get_local_time()
+    }
+    
+    response = requests.post(URL_add_user_register, headers={'Content-Type': 'application/json'}, data=ujson.dumps(data_sending))
+    return ujson.loads(response.content)
+    
+def add_time_registry(uid):
+    """
+    Adds the time registry to the database using a POST request.
+    
+    Parameters:
+        uid (str): The UID (Unique ID) of the user to be registered.
+    
+    Returns:
+        dict: A dictionary containing the response message from the server.
+    """
+    data_sending = {
+        "UID": uid,
+        "user_registry_tstamp": get_local_time()
+    }
+    
+    response = requests.post(URL_add_time_registry, headers={'Content-Type': 'application/json'}, data=ujson.dumps(data_sending))
+    return ujson.loads(response.content)
+
+def get_user_registered_by_uid(uid):
+    """
+    Retrieves user registration details from the server based on UID using a GET request.
+    
+    Parameters:
+        uid (str): The UID (Unique ID) of the user to be registered.
+    
+    Returns:
+        dict: A dictionary containing the response message from the server.
+    """
+    response = requests.get(URL_get_user_registered_by_uid + '/%s'.format(uid))
+    return ujson.loads(response.content)
+\end{lstlisting}
+\captionof{figure}{Código del archivo \texttt{``microcontrolador/data\_sending\_api.py''} del microcontrolador.}
+
+\subsection{Servidor}
+\subsubsection{api.py}
+Este archivo contiene la API REST del servidor.
+Contiene funciones para conectarse a la base de datos, añadir usuarios y registros de acceso, recuperar usuarios y registros de acceso mediante el UID y enviar el registro de usarios y accesos a Ubidots.
+Para ello se muestran solo las funciones para el registro de usuarios \texttt{''insert\_user\_register()''}, \texttt{''get\_user\_register\_by\_uid(uid)''} y \texttt{''add\_user\_ubidots(uid)''} en la siguiente figura.
+
+\begin{lstlisting}
+import sqlite3
+from flask import Flask, request, jsonify
+import requests
+from api.ubidots_conf import URL_UBIDOTS, TOKEN_UBIDOTS
+
+...
+
+def insert_user_register(user):
+    """
+    Inserts a new user registration record into the 'user_register' table and send it to Ubidots.
+
+    Parameters:
+        user (dict): Dictionary containing user information with keys:
+                     - 'UID': Unique ID of the user.
+                     - 'user_creation_tstamp': Timestamp of user creation.
+
+    Returns:
+        dict: Dictionary containing the status of the operation and error message (if any).
+              Keys:
+              - 'api_status': Boolean indicating the success of the operation.
+              - 'error': Error message if an error occurred during the operation.v
+              - 'ubidots_status': HTTP status code of the request to Ubidots.
+              - 'UID': Unique ID of the user.
+              - 'user_creation_tstamp': Timestamp of user creation.
+    """
+    inserted_user = {'api_status': False, 'error': None, 'ubidots_status': False, 'UID': None, 'user_creation_tstamp': None}
+    try:
+        conn = connect_to_db()
+        conn.row_factory = sqlite3.Row
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM user_register WHERE UID = ?", (user['UID'],))
+        rows = cur.fetchall()
+        if len(rows) > 0:
+            inserted_user['error'] = "User already exists"
+            return inserted_user
+        
+        cur.execute("INSERT INTO user_register (UID, user_creation_tstamp) VALUES (?, ?)",
+                    (user['UID'], user['user_creation_tstamp']) )
+        conn.commit()
+        inserted_user.update(get_user_register_by_uid(user['UID']))
+        ubidots_status = add_user_ubidots(user['UID'])
+        if ubidots_status == 200:
+            inserted_user['api_status'] = True
+        else :
+            inserted_user['error'] = "Error adding user to Ubidots"
+            
+        inserted_user['ubidots_status'] = ubidots_status
+    except:
+        conn.rollback()
+    finally:
+        conn.close()
+    return inserted_user
+
+	def get_user_register_by_uid(uid):
+    """
+    Retrieves a user record from the 'user_register' table based on the provided UID.
+
+    Parameters:
+        uid (str): The UID (Unique ID) of the user to retrieve.
+
+    Returns:
+        dict: A dictionary representing the user record if found, otherwise an empty dictionary.
+              The dictionary contains keys 'UID' and 'user_creation_tstamp' with corresponding values.
+    """
+    user = {}
+    try:
+        conn = connect_to_db()
+        conn.row_factory = sqlite3.Row
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM user_register WHERE UID = ?", (uid,))
+        rows = cur.fetchall()
+
+        # convert row objects to dictionary
+        for i in rows:
+            user["UID"]  = i["UID"]
+            user["user_creation_tstamp"]  = i["user_creation_tstamp"]
+            
+    except:
+        user = {}
+    return user
+
+	def add_user_ubidots(uid):
+    """
+    Sends an HTTP POST request to Ubidots API to add a user registration.
+
+    Parameters:
+        uid (str): The UID (User ID) of the user to register.
+
+    Returns:
+        int: HTTP status code of the request.
+    """
+    data = {
+        'add_user_register': {
+            'value': 1,
+            'context': {
+                'UID': uid
+            }
+        }
+    }
+    request = requests.post(
+        URL_UBIDOTS,
+        headers={'X-Auth-Token': TOKEN_UBIDOTS, 'Content-Type': 'application/json'},
+        json=data
+    )
+    return request.status_code
+	
+	@app.route('/api/user_register/<uid>', methods=['GET'])
+    def api_get_user_register_by_id(uid):
+        return jsonify(get_user_register_by_uid(uid))
+    
+    @app.route('/api/user_register/add', methods=['POST'])
+    def api_add_user_register():
+        user = request.get_json()
+        return jsonify(insert_user_register(user))
+
+	app.run(host="0.0.0.0")
+\end{lstlisting}
+\captionof{figure}{Código del archivo \texttt{``api/api.py''} del servidor.}
+
+\subsubsection{initdb.py}
+Este archivo contiene la inicialización de la base de datos.
+Para ello crea el directorio \texttt{``database''} si no existe y el archivo \texttt{``database.db''} si no existe.
+Crea las tablas \texttt{``user\_register''} y \texttt{``time\_registry''} si no existen.
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|l|l|l|}
+	\hline
+	\textbf{Nombre columna} & \textbf{Tipo de dato} & \textbf{Restricciones} \\ \hline
+	\texttt{UID} & \texttt{TEXT} & \texttt{PRIMARY KEY, NOT NULL} \\ \hline
+	\texttt{user\_creation\_tstamp} & \texttt{TEXT} & \texttt{NOT NULL} \\ \hline
+	\end{tabular}
+	\caption{Tabla \texttt{user\_register} esquema.}
+	\end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|l|l|p{8cm}|}
+	\hline
+	\textbf{Nombre columna} & \textbf{Tipo de dato} & \textbf{Restricciones} \\ \hline
+	\texttt{id} & \texttt{INTEGER} & \texttt{PRIMARY KEY AUTOINCREMENT} \\ \hline
+	\texttt{user\_registry\_tstamp} & \texttt{TEXT} & \texttt{NOT NULL} \\ \hline
+	\texttt{UID} & \texttt{TEXT} & \texttt{NOT NULL, REFERENCES user\_register(UID)} \\ \hline
+	\end{tabular}
+	\caption{Tabla \texttt{time\_registry} esquema.}
+	\end{table}
+
+\begin{lstlisting}
+	import sqlite3
+import os
+
+if __name__ == '__main__':
+    try:
+        # Create the directory if it doesn't exist
+        os.makedirs('database', exist_ok=True)
+        print("Database directory created successfully.")
+
+        # Create the database file if it doesn't exist
+        open('database/database.db', 'a').close()
+        print("Database file created successfully.")
+
+        # Establish connection to the database
+        conn = sqlite3.connect('database/database.db')
+        print("Connection to the database established successfully.")
+
+        # Create user_register table
+        conn.execute('''
+                    CREATE TABLE IF NOT EXISTS user_register (
+                        UID    TEXT PRIMARY KEY NOT NULL,
+                        user_creation_tstamp TEXT NOT NULL
+                    )
+        ''')
+        print("Table 'user_register' created successfully.")
+
+        # Create time_registry table
+        conn.execute('''
+                    CREATE TABLE IF NOT EXISTS time_registry (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        user_registry_tstamp TEXT NOT NULL,
+                        UID TEXT NOT NULL REFERENCES user_register(UID)
+                    )
+         ''')
+
+        print("Table 'time_registry' created successfully.")
+
+        # Commit changes
+        conn.commit()
+        print("Changes committed successfully.")
+    except Exception as e:
+        print(e)
+        print("Table creation failed")
+    finally:
+        conn.close()
+
+\end{lstlisting}
+\captionof{figure}{Código del archivo \texttt{``api/initdb.py''} del servidor.}
+
+\subsubsection{build.bat, Dockerfile y start.sh}
+Estos archivos son necesarios para la creación del contenedor Docker del servidor.
+El archivo \texttt{``build.bat''} contiene los comandos para construir la imagen y ejecutar el contenedor.
+El archivo \texttt{``api/Dockerfile''} contiene las instrucciones para construir la imagen del contenedor.
+El archivo \texttt{``api/start.sh''} contiene las instrucciones para inicializar la base de datos y ejecutar la API.
+
+
+\begin{lstlisting}
+	REM Change directory to the location of the Dockerfile
+	cd ./api
+	
+	REM Build Docker image
+	docker build -t server_rfid .
+	
+	REM Run Docker container
+	docker run --rm -it -v database:/home/database -p 8888:5000 --name server_rfid server_rfid	
+\end{lstlisting}
+\captionof{figure}{Código del archivo \texttt{``build.bat''} del servidor.}
+
+\begin{lstlisting}
+FROM ubuntu
+
+# Instalar Python 3 y Flask
+RUN apt update
+RUN apt install python3 python3-pip -y
+RUN apt install python3-flask -y
+RUN apt install python3-requests -y
+
+# Establecer el directorio de trabajo y copiar los archivos
+WORKDIR /home/
+COPY initdb.py .
+COPY api.py .
+COPY start.sh .
+COPY ubidots.py .
+
+# Dar permisos para ejecutar el script
+RUN chmod +x start.sh
+
+# Exponer el puerto
+EXPOSE 5000
+
+# Ejecutar los scripts
+CMD ["./start.sh"]
+
+\end{lstlisting}
+\captionof{figure}{Código del archivo \texttt{``api/Dockerfile''} del servidor.}
+
+\begin{lstlisting}
+	#!/bin/sh
+
+# Check if the database directory exists, if not, create it (Only for the first run)
+if [ ! -d "database" ]; then
+    mkdir database
+fi
+
+# Initialize the database
+python3 initdb.py
+
+# Start the API
+python3 api.py
+\end{lstlisting}
+\captionof{figure}{Código del archivo \texttt{``api/start.sh''} del servidor.}
+
+\subsubsection{ubidots\_conf.py}
+Este archivo contiene la configuración de Ubidots.
+Contiene la URL de Ubidots, el dispositivo y el token de la API.
+\begin{lstlisting}
+DISPOSITIVE_NAME = '' # Device name in Ubidots
+URL_UBIDOTS = f'http://industrial.api.ubidots.com/api/v1.6/devices/{DISPOSITIVE_NAME}/'
+TOKEN_UBIDOTS = '' # Token of the API
+\end{lstlisting}
+
+
 \section{Problemas encontrados}
 \subsection{Problema 1: Dirección estática del servidor} 
-\subsection{Problema 2}
+Para poder acceder al servidor desde la Raspberry Pi Pico WH se debe tener una dirección IP estática en el servidor. Para ello se debe configurar la dirección IP estática accediendo a la configuración del router.
+Se accede mediante un navegador web a la dirección IP del router en mi caso 192.168.1.1 y se introduce el usuario \texttt{''admin''} y la contraseña. Una vez dentro se busca la opción de configuración avanzada para acceder al servidor DHCP y se asigna una dirección IP estática al servidor.
+En mi caso como se muestra en la figura \ref{fig:configuracion router} el router asigna de manera dinámica direcciones IP a los dispositivos conectados en el rango de 192.168.1.10 - 192.168.1.150. Por lo que se asignó la dirección IP 192.168.1.2 al servidor para que siempre tenga la misma dirección IP y esta no pueda colisionar con otros dispositivos.
+\begin{figure}[H]
+	\raggedright
+	\includegraphics[width=1\linewidth]{../images/router_config.png}
+	\caption{\label{fig:configuracion router}Configuración de red del router.}
+\end{figure}
+
+\subsection{Problema 2: Volumen Docker}
+Para poder mantener los datos de la base de datos de manera persistente se debe crear un volumen de Docker.
+
+
 \subsection{Problema 3}
 \section{Referencias}
 \end{document}
