@@ -22,5 +22,6 @@
 \contentsline {section}{\numberline {6}Problemas encontrados}{15}{section.6}%
 \contentsline {subsection}{\numberline {6.1}Problema 1: Dirección estática del servidor}{15}{subsection.6.1}%
 \contentsline {subsection}{\numberline {6.2}Problema 2: Volumen Docker}{16}{subsection.6.2}%
-\contentsline {subsection}{\numberline {6.3}Problema 3}{16}{subsection.6.3}%
-\contentsline {section}{\numberline {7}Referencias}{16}{section.7}%
+\contentsline {subsection}{\numberline {6.3}Problema 3: Envío de datos a Ubidots}{17}{subsection.6.3}%
+\contentsline {section}{\numberline {7}Resultados obtenidos}{17}{section.7}%
+\contentsline {section}{Referencias}{17}{section.7}%

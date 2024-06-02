@@ -20,6 +20,10 @@
 \usepackage{array}
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{natbib}
+
+
+
 
 \begin{document}
 
@@ -142,10 +146,16 @@ Para el proyecto se ha utilizado el siguiente hardware:
 
 \section{Software utilizado}
 \subsection{Microcontrolador}
-Se empleó el microcontrolador Raspberry Pi Pico WH utilizando el lenguaje Micropython. Se hizo uso de las \href{https://github.com/micropython/micropython/tree/master/examples/bluetooth}{bibliotecas BLE} (Bluetooth Low Energy) para establecer y gestionar la comunicación Bluetooth en el microcontrolador. Para el dispositivo móvil se utilizó la aplicación \href{https://play.google.com/store/apps/details?id=de.kai_morich.serial_usb_terminal&pcampaignid=web_share}{Serial Bluetooth Terminal} disponible en Play Store. Para la lectura de llaves y tarjetas basadas en radiofrecuencia se utilizó la \href{https://github.com/danjperron/micropython-mfrc522/blob/master/mfrc522.py}{bibilioteca MFRC522}. En la comunicación con el servidor se implementó una API REST que permite el envío y recepción de datos de manera estructurada. Por último, se hizo uso de la librería machine para encender y apagar LEDs.
+Se empleó el microcontrolador Raspberry Pi Pico WH utilizando el lenguaje Micropython.
+Se hizo uso de las \href{https://github.com/micropython/micropython/tree/master/examples/bluetooth}{bibliotecas BLE} (Bluetooth Low Energy)\cite{micropythonBluetoothExamples} para establecer y gestionar la comunicación Bluetooth en el microcontrolador. 
+Para el dispositivo móvil se utilizó la aplicación \href{https://play.google.com/store/apps/details?id=de.kai_morich.serial_usb_terminal&pcampaignid=web_share}{Serial Bluetooth Terminal}\cite{sam2023ble} disponible en Play Store. Para la lectura de llaves y tarjetas basadas en radiofrecuencia se utilizó la \href{https://github.com/danjperron/micropython-mfrc522/blob/master/mfrc522.py}{bibilioteca MFRC522} \cite{danjperron2022mfrc522}.
+En la comunicación con el servidor se implementó una API REST que permite el envío y recepción de datos de manera estructurada. Por último, se hizo uso de la librería estándar machine para encender y apagar LEDs.
 
 \subsection{Servidor}
-En la implementación del servidor se hace uso de un contenedor Docker con la imagen base de Ubuntu. A la imagen se le instala Python junto con el paquete Flask para gestionar la lógica del servidor mediante solicitudes HTTP. Para la persistencia de datos se emplea un volumen de Docker junto con una base de datos SQLite.
+En la implementación del servidor se hace uso de un contenedor Docker con la imagen base de Ubuntu. 
+A la imagen se le instala Python junto con el paquete Flask para gestionar la lógica del servidor mediante solicitudes HTTP. 
+Para la persistencia de datos se emplea un volumen de Docker junto con una base de datos SQLite.
+Para el desarrollo del servidor se modifica el código de la \href{https://pmanzoni.notion.site/LAB-6-REST-d487dab1b7e24d56b31d8e552a480888}{práctica 6 - REST} \cite{manzoni2024lab6}
 
 
 \subsection{Ubidots}
@@ -188,8 +198,8 @@ Para la realización del proyecto se deben seguir los siguientes pasos.
 		\includegraphics[width=0.7\linewidth]{../images/ubidots_create_device_1.png}
 		\caption{\label{fig:ubidots_create_device_1}Creación de un nuevo dispositivo en Ubidots.}
 	\end{figure}
-	\item Añadir el nombre del dispositivo a la variable  \texttt{``DISPOSITIVE\_NAME''} dentro del archivo \texttt{``api/ubidots.py''}.
-	\item Dentro del dispositivo crear dos raw variable, una para el registro de usuarios y otra para el registro de accesos de los usarios.
+	\item Añadir el nombre del dispositivo a la variable  \texttt{``DISPOSITIVE\_NAME''} dentro del archivo \texttt{``api/ubidots\_conf.py''}.
+	\item Dentro del dispositivo crear dos \texttt{``raw variable''}, una para el registro de usuarios y otra para el registro de accesos de los usarios.
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.7\linewidth]{../images/ubidots_create_variable.png}
@@ -201,10 +211,11 @@ Para la realización del proyecto se deben seguir los siguientes pasos.
 			\includegraphics[width=0.7\linewidth]{../images/ubidots_obtener_token.png}
 			\caption{\label{fig:ubidots_obtener_token}Obtención del token de la API en Ubidots.}
 		\end{figure}
-	\item Copiar el token de la API a la variable \texttt{``TOKEN\_UBIDOTS''} dentro del archivo \texttt{``api/ubidots.py''}.
+	\item Copiar el token de la API a la variable \texttt{``TOKEN\_UBIDOTS''} dentro del archivo \texttt{``api/ubidots\_conf.py''}.
 \end{enumerate}
 
 \subsection{Paso 2: Montaje circuito}
+Para el montaje del circuito se ha seguido como referencia el siguiente vídeo \href{https://www.youtube.com/watch?v=bvn_o39uXac}{RFID RC522 con Raspberry Pi Pico y Códigos en MicroPython para simple Control de Acceso} \cite{computadoras2022rfid}.\\
 Conectar el lector RFID-RC522 a la Raspberry Pi Pico WH siguiendo la siguiente tabla:
 
 \begin{center}
@@ -277,11 +288,11 @@ En esta sección se muestra en detalle el código de los archivos de los archivo
 \subsection{Microcontrolador}
 \subsubsection{main.py}
 Este archivo es el principal del microcontrolador.
-Contiene la configuración de la comunicación Bluetooth y la función \texttt{''on\_rx(data)''} donde se recibe el mensaje bluetooth para el cambio de modo de lectura.
-En la función \texttt{''main()''} se llama a la función \texttt{''wifi.connect()''} para conectar a la red WiFi y se inicia el bucle principal del programa.
-En el bucle se llama a la función \texttt{''sensor.read\_sensor()''} y recibe el uid de la llave o tarjeta RFID. 
-Si el modo es de registro se llama a la función \texttt{''sender.add\_user\_register(uid)''} y si es el modo de registro de entrada se llama a la función \texttt{''sensor.add\_time\_registry(uid)''}.
-Por último se llama a la función \texttt{''led.blink\_led(response['api\_status'])''} para encender el led tricolor en función de la respuesta de la API.
+Contiene la configuración de la comunicación Bluetooth y la función \texttt{``on\_rx(data)''} donde se recibe el mensaje bluetooth para el cambio de modo de lectura.
+En la función \texttt{``main()''} se llama a la función \texttt{``wifi.connect()''} para conectar a la red WiFi y se inicia el bucle principal del programa.
+En el bucle se llama a la función \texttt{``sensor.read\_sensor()''} y recibe el uid de la llave o tarjeta RFID. 
+Si el modo es de registro se llama a la función \texttt{``sender.add\_user\_register(uid)''} y si es el modo de registro de entrada se llama a la función \texttt{``sensor.add\_time\_registry(uid)''}.
+Por último se llama a la función \texttt{``led.blink\_led(response[`api\_status'])''} para encender el led tricolor en función de la respuesta de la API.
 
 \begin{lstlisting}
 	import bluetooth  # Bluetooth module
@@ -350,7 +361,7 @@ Por último se llama a la función \texttt{''led.blink\_led(response['api\_statu
 	\captionof{figure}{Código del archivo \texttt{``microcontrolador/main.py''} del microcontrolador.}
 	
 \subsubsection{sensor.py}
-Este archivo contiene la función \texttt{''read\_sensor()''} que lee el sensor RFID y devuelve el uid de la llave o tarjeta RFID leída.
+Este archivo contiene la función \texttt{``read\_sensor()''} que lee el sensor RFID y devuelve el uid de la llave o tarjeta RFID leída.
 \begin{lstlisting}
 from lib.mfrc522.mfrc522 import MFRC522  # RFID reader module
 import time  # Time-related functions
@@ -395,7 +406,7 @@ def read_sensor() -> str:
 
 \subsubsection{data\_sending\_api.py}
 Este archivo contiene las funciones para enviar datos a la API REST del servidor.
-Se tienen las funciones \texttt{''add\_user\_register(uid)''} y \texttt{''add\_time\_registry(uid)''} para enviar los datos de registro de usuario y de acceso respectivamente.
+Se tienen las funciones \texttt{``add\_user\_register(uid)''} y \texttt{``add\_time\_registry(uid)''} para enviar los datos de registro de usuario y de acceso respectivamente.
 
 \begin{lstlisting}
 	import time  # Standard Python time module
@@ -478,7 +489,7 @@ def get_user_registered_by_uid(uid):
 \subsubsection{api.py}
 Este archivo contiene la API REST del servidor.
 Contiene funciones para conectarse a la base de datos, añadir usuarios y registros de acceso, recuperar usuarios y registros de acceso mediante el UID y enviar el registro de usarios y accesos a Ubidots.
-Para ello se muestran solo las funciones para el registro de usuarios \texttt{''insert\_user\_register()''}, \texttt{''get\_user\_register\_by\_uid(uid)''} y \texttt{''add\_user\_ubidots(uid)''} en la siguiente figura.
+Para ello se muestran solo las funciones para el registro de usuarios \texttt{``insert\_user\_register()''}, \texttt{``get\_user\_register\_by\_uid(uid)''} y \texttt{``add\_user\_ubidots(uid)''} en la siguiente figura.
 
 \begin{lstlisting}
 import sqlite3
@@ -754,7 +765,7 @@ TOKEN_UBIDOTS = '' # Token of the API
 \section{Problemas encontrados}
 \subsection{Problema 1: Dirección estática del servidor} 
 Para poder acceder al servidor desde la Raspberry Pi Pico WH se debe tener una dirección IP estática en el servidor. Para ello se debe configurar la dirección IP estática accediendo a la configuración del router.
-Se accede mediante un navegador web a la dirección IP del router en mi caso 192.168.1.1 y se introduce el usuario \texttt{''admin''} y la contraseña. Una vez dentro se busca la opción de configuración avanzada para acceder al servidor DHCP y se asigna una dirección IP estática al servidor.
+Se accede mediante un navegador web a la dirección IP del router en mi caso 192.168.1.1 y se introduce el usuario \texttt{``admin''} y la contraseña. Una vez dentro se busca la opción de configuración avanzada para acceder al servidor DHCP y se asigna una dirección IP estática al servidor.
 En mi caso como se muestra en la figura \ref{fig:configuracion router} el router asigna de manera dinámica direcciones IP a los dispositivos conectados en el rango de 192.168.1.10 - 192.168.1.150. Por lo que se asignó la dirección IP 192.168.1.2 al servidor para que siempre tenga la misma dirección IP y esta no pueda colisionar con otros dispositivos.
 \begin{figure}[H]
 	\raggedright
@@ -764,8 +775,44 @@ En mi caso como se muestra en la figura \ref{fig:configuracion router} el router
 
 \subsection{Problema 2: Volumen Docker}
 Para poder mantener los datos de la base de datos de manera persistente se debe crear un volumen de Docker.
+Para ello en la aplicación Docker Desktop se accede a la opción de \texttt{``Volumes''} y se crea un volumen con el nombre \texttt{``database''} como se muestra en la figura \ref{fig:volumen docker}.
+\begin{figure}[H]
+    \raggedright
+    \includegraphics[width=1\linewidth]{../images/volumen_docker.png}
+    \caption{\label{fig:volumen docker}Creación de un volumen de Docker.}
+\end{figure}
+
+Y se observa como en el archivo \texttt{``build.bat''} se enlaza el volumen con el contenedor mediante el comando \texttt{``-v database:/home/database''}.
 
 
-\subsection{Problema 3}
-\section{Referencias}
+\subsection{Problema 3: Envío de datos a Ubidots}
+Para poder enviar los datos a Ubidots se debe configurar el dispositivo en Ubidots y obtener el token de la API.
+El token de la API se debe enviar en la cabecera de la petición HTTP.
+Para ello se debe buscar en la \href{https://docs.ubidots.com/reference/authentication}{documentación de Ubidots} el formato de la petición y enviar los datos en el formato correcto con la cabecera \texttt{``X-Auth-Token''}.
+\begin{lstlisting}
+def add_user_ubidots(uid):
+    ...
+    request = requests.post(
+        URL_UBIDOTS,
+        headers={'X-Auth-Token': TOKEN_UBIDOTS, 'Content-Type': 'application/json'},
+        json=data
+    )
+    ...
+\end{lstlisting}
+
+\section{Resultados obtenidos}
+Se ha logrado implementar un sistema de control de acceso mediante llaves y tarjetas RFID con un microcontrolador Raspberry Pi Pico WH y un servidor con una base de datos SQLite y una API REST.
+Se ha logrado enviar los datos de registro de usuarios y accesos a Ubidots para su visualización en tiempo real.
+Se ha logrado cambiar el modo de lectura de la llave o tarjeta RFID mediante Bluetooth Low Energy.
+Se ha logrado encender un LED tricolor en función de la respuesta de la API.
+La aplicación ha sido probada con éxito y se ha logrado registrar usuarios y accesos de manera correcta.\\
+Como trabajo futuro se propone mejorar la seguridad del sistema mediante la encriptación de los datos y la escalabilidad del sistema con varias Raspberry Pi Pico WH y lectores RFID que se comuniquen con el servidor.
+También se podría cambiar la tecnología de lectura de llaves y tarjetas RFID por NFC, un sistema de reconocimiento facial o de huella dactilar para mejorar la seguridad del sistema.
+
+\addcontentsline{toc}{section}{Referencias} % Agregar la sección de Referencias al índice
+\bibliographystyle{plain}
+\bibliography{refs}
+
+
+
 \end{document}
