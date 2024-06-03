@@ -1,7 +1,7 @@
 import sqlite3
 from flask import Flask, request, jsonify
 import requests
-from api.ubidots_conf import URL_UBIDOTS, TOKEN_UBIDOTS
+from ubidots_conf import URL_UBIDOTS, TOKEN_UBIDOTS
 
 def connect_to_db():
     """

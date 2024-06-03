@@ -145,9 +145,10 @@ Para el proyecto se ha utilizado el siguiente hardware:
 
 
 \section{Software utilizado}
+Para la realización del proyecto se ha utilizado el siguiente software.
 \subsection{Microcontrolador}
-Se empleó el microcontrolador Raspberry Pi Pico WH utilizando el lenguaje Micropython.
-Se hizo uso de las \href{https://github.com/micropython/micropython/tree/master/examples/bluetooth}{bibliotecas BLE} (Bluetooth Low Energy)\cite{micropythonBluetoothExamples} para establecer y gestionar la comunicación Bluetooth en el microcontrolador. 
+Como lenguaje de programación para el microcontrolador Raspberry Pi Pico WH se ha utilizado Micropython.
+Para establecer y gestionar la comunicación Bluetooth en el microcontrolador se hizo uso de las \href{https://github.com/micropython/micropython/tree/master/examples/bluetooth}{bibliotecas BLE} (Bluetooth Low Energy)\cite{micropythonBluetoothExamples}.
 Para el dispositivo móvil se utilizó la aplicación \href{https://play.google.com/store/apps/details?id=de.kai_morich.serial_usb_terminal&pcampaignid=web_share}{Serial Bluetooth Terminal}\cite{sam2023ble} disponible en Play Store. Para la lectura de llaves y tarjetas basadas en radiofrecuencia se utilizó la \href{https://github.com/danjperron/micropython-mfrc522/blob/master/mfrc522.py}{bibilioteca MFRC522} \cite{danjperron2022mfrc522}.
 En la comunicación con el servidor se implementó una API REST que permite el envío y recepción de datos de manera estructurada. Por último, se hizo uso de la librería estándar machine para encender y apagar LEDs.
 
@@ -155,11 +156,11 @@ En la comunicación con el servidor se implementó una API REST que permite el e
 En la implementación del servidor se hace uso de un contenedor Docker con la imagen base de Ubuntu. 
 A la imagen se le instala Python junto con el paquete Flask para gestionar la lógica del servidor mediante solicitudes HTTP. 
 Para la persistencia de datos se emplea un volumen de Docker junto con una base de datos SQLite.
-Para el desarrollo del servidor se modifica el código de la \href{https://pmanzoni.notion.site/LAB-6-REST-d487dab1b7e24d56b31d8e552a480888}{práctica 6 - REST} \cite{manzoni2024lab6}
+Para el desarrollo del servidor se modifica el código de la \href{https://pmanzoni.notion.site/LAB-6-REST-d487dab1b7e24d56b31d8e552a480888}{práctica 6 - REST} \cite{manzoni2024lab6}.
 
 
 \subsection{Ubidots}
-Para la plataforma de se ha utilizado \href{https://stem.ubidots.com/}{Ubidots} mediante una cuenta STEM. Ubidots permite la visualización de datos en tiempo real y un envío de 1 req/s.
+Para la plataforma de visualización se ha utilizado \href{https://stem.ubidots.com/}{Ubidots} mediante una cuenta STEM. Ubidots permite la visualización de datos en tiempo real y un envío de 1 req/s.
 
 \section{Pasos para realizar el proyecto}
 Para la realización del proyecto se deben seguir los siguientes pasos.
@@ -199,7 +200,7 @@ Para la realización del proyecto se deben seguir los siguientes pasos.
 		\caption{\label{fig:ubidots_create_device_1}Creación de un nuevo dispositivo en Ubidots.}
 	\end{figure}
 	\item Añadir el nombre del dispositivo a la variable  \texttt{``DISPOSITIVE\_NAME''} dentro del archivo \texttt{``api/ubidots\_conf.py''}.
-	\item Dentro del dispositivo crear dos \texttt{``raw variable''}, una para el registro de usuarios y otra para el registro de accesos de los usarios.
+	\item Dentro del dispositivo crear dos \texttt{``raw variable''}, una para el registro de usuarios \texttt{``add\_user\_register''} y otra para el registro de accesos de los usarios \texttt{``add\_time\_registry''}.
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.7\linewidth]{../images/ubidots_create_variable.png}
@@ -215,7 +216,7 @@ Para la realización del proyecto se deben seguir los siguientes pasos.
 \end{enumerate}
 
 \subsection{Paso 2: Montaje circuito}
-Para el montaje del circuito se ha seguido como referencia el siguiente vídeo \href{https://www.youtube.com/watch?v=bvn_o39uXac}{RFID RC522 con Raspberry Pi Pico y Códigos en MicroPython para simple Control de Acceso} \cite{computadoras2022rfid}.\\
+Para el montaje del circuito se ha seguido como referencia el siguiente vídeo \href{https://www.youtube.com/watch?v=bvn_o39uXac}{`RFID RC522 con Raspberry Pi Pico y Códigos en MicroPython para simple Control de Acceso'} \cite{computadoras2022rfid}.\\
 Conectar el lector RFID-RC522 a la Raspberry Pi Pico WH siguiendo la siguiente tabla:
 
 \begin{center}
@@ -277,6 +278,7 @@ Para ejecutar el proyecto se deben seguir los siguientes pasos:
 \begin{enumerate}
 	\item Conectar la Raspberry Pi Pico WH al ordenador.
 	\item Abrir Thonny y ejecutar el archivo \texttt{``microcontrolador/main.py''} en la Raspberry Pi Pico WH.
+	\item Arrancar el daemon de Docker.
 	\item Ejecutar el archivo \texttt{``build.bat''} en el servidor.
 	\item Abrir Ubidots y visualizar los datos.
 	\item Realizar pruebas de registro y acceso.
@@ -380,11 +382,7 @@ def read_sensor() -> str:
     print("RFID sensor active...\n")
 
     try:
-        i = 0
         while True:
-            i = i + 1
-            print(str(i) + ' ' + MODE)  # Print iteration count and current mode
-
             lector.init()  # Initialize the RFID reader
             (stat, tag_type) = lector.request(lector.REQIDL)  # Request tag detection
 
@@ -405,11 +403,11 @@ def read_sensor() -> str:
 \captionof{figure}{Código del archivo \texttt{``microcontrolador/sensor.py''} del microcontrolador.}
 
 \subsubsection{data\_sending\_api.py}
-Este archivo contiene las funciones para enviar datos a la API REST del servidor.
+Este archivo contiene las funciones para enviar datos mediante la API REST del servidor.
 Se tienen las funciones \texttt{``add\_user\_register(uid)''} y \texttt{``add\_time\_registry(uid)''} para enviar los datos de registro de usuario y de acceso respectivamente.
 
 \begin{lstlisting}
-	import time  # Standard Python time module
+import time  # Standard Python time module
 import ujson  # Module for handling JSON data
 import urequests as requests  # Module for making HTTP requests (alias for urequests)
 
@@ -512,7 +510,7 @@ def insert_user_register(user):
         dict: Dictionary containing the status of the operation and error message (if any).
               Keys:
               - 'api_status': Boolean indicating the success of the operation.
-              - 'error': Error message if an error occurred during the operation.v
+              - 'error': Error message if an error occurred during the operation.
               - 'ubidots_status': HTTP status code of the request to Ubidots.
               - 'UID': Unique ID of the user.
               - 'user_creation_tstamp': Timestamp of user creation.
@@ -640,7 +638,7 @@ Crea las tablas \texttt{``user\_register''} y \texttt{``time\_registry''} si no 
 	\end{table}
 
 \begin{lstlisting}
-	import sqlite3
+import sqlite3
 import os
 
 if __name__ == '__main__':
@@ -691,7 +689,7 @@ if __name__ == '__main__':
 
 \subsubsection{build.bat, Dockerfile y start.sh}
 Estos archivos son necesarios para la creación del contenedor Docker del servidor.
-El archivo \texttt{``build.bat''} contiene los comandos para construir la imagen y ejecutar el contenedor.
+El archivo \texttt{``build.bat''} contiene los comandos para construir la imagen e iniciar el contenedor.
 El archivo \texttt{``api/Dockerfile''} contiene las instrucciones para construir la imagen del contenedor.
 El archivo \texttt{``api/start.sh''} contiene las instrucciones para inicializar la base de datos y ejecutar la API.
 
@@ -763,8 +761,9 @@ TOKEN_UBIDOTS = '' # Token of the API
 
 
 \section{Problemas encontrados}
+En los siguientes apartados se describen los problemas encontrados durante la realización del proyecto y las soluciones propuestas:
 \subsection{Problema 1: Dirección estática del servidor} 
-Para poder acceder al servidor desde la Raspberry Pi Pico WH se debe tener una dirección IP estática en el servidor. Para ello se debe configurar la dirección IP estática accediendo a la configuración del router.
+Para poder acceder al servidor desde la Raspberry Pi Pico WH siempre de la misma manera sin tener que modificar el código se debe tener una dirección IP estática en el servidor. Para ello se debe configurar la dirección IP estática accediendo a la configuración del router.
 Se accede mediante un navegador web a la dirección IP del router en mi caso 192.168.1.1 y se introduce el usuario \texttt{``admin''} y la contraseña. Una vez dentro se busca la opción de configuración avanzada para acceder al servidor DHCP y se asigna una dirección IP estática al servidor.
 En mi caso como se muestra en la figura \ref{fig:configuracion router} el router asigna de manera dinámica direcciones IP a los dispositivos conectados en el rango de 192.168.1.10 - 192.168.1.150. Por lo que se asignó la dirección IP 192.168.1.2 al servidor para que siempre tenga la misma dirección IP y esta no pueda colisionar con otros dispositivos.
 \begin{figure}[H]

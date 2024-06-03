@@ -11,7 +11,7 @@ WORKDIR /home/
 COPY initdb.py .
 COPY api.py .
 COPY start.sh .
-COPY ubidots.py .
+COPY ubidots_conf.py .
 
 # Dar permisos de ejecución al script
 RUN chmod +x start.sh

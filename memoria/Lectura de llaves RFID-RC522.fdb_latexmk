@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex Lectura de llaves RFID-RC522"] 1717320826.28323 "Lectura de llaves RFID-RC522.aux" "Lectura de llaves RFID-RC522.bbl" "Lectura de llaves RFID-RC522" 1717321054.69741 0
+["bibtex Lectura de llaves RFID-RC522"] 1717340848.79998 "Lectura de llaves RFID-RC522.aux" "Lectura de llaves RFID-RC522.bbl" "Lectura de llaves RFID-RC522" 1717341466.09572 0
   "./refs.bib" 1717319461 1461 f850ff670916dbe244de7c2f6c9d5075 ""
   "C:/Program Files/MiKTeX/bibtex/bst/bibtex/plain.bst" 1291864736 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
-  "Lectura de llaves RFID-RC522.aux" 1717321052 10231 46bf6841e80056fd78f559f4850b2f89 "pdflatex"
+  "Lectura de llaves RFID-RC522.aux" 1717341463 10231 1c3db415754b003c3dea5886a4a16ab6 "pdflatex"
   (generated)
   "Lectura de llaves RFID-RC522.bbl"
   "Lectura de llaves RFID-RC522.blg"
   (rewritten before read)
-["pdflatex"] 1717321048.64666 "c:/Users/Usuario/Desktop/Tercero B/IDC/Lectura-de-llaves-RFID-RC522/memoria/Lectura de llaves RFID-RC522.tex" "Lectura de llaves RFID-RC522.pdf" "Lectura de llaves RFID-RC522" 1717321054.6985 0
+["pdflatex"] 1717341456.51707 "c:/Users/Usuario/Desktop/Tercero B/IDC/Lectura-de-llaves-RFID-RC522/memoria/Lectura de llaves RFID-RC522.tex" "Lectura de llaves RFID-RC522.pdf" "Lectura de llaves RFID-RC522" 1717341466.09843 0
   "../images/cable_mh.jpg" 1715347050 7189 b2674efed37e343b0b2c0dd07c795ffa ""
   "../images/cable_mm.jpg" 1715346998 29568 63e7c94a1da9f807b5bdbf93dbd1f796 ""
   "../images/esquema_de_conexionado.png" 1714145073 596315 b779d200ac952b53d6d46fc017454945 ""
@@ -20,7 +20,7 @@
   "../images/resistencia.jpg" 1715347242 51516 c79f241dd9af29ffaf95da078e23d2d6 ""
   "../images/router_config.png" 1717265895 77028 45d2cd46500a3087c9d83bc823e38ec3 ""
   "../images/ubidots_create_device_1.png" 1715421629 15248 2223e79ba05f20f748d242c7ee896553 ""
-  "../images/ubidots_create_variable.png" 1715421939 24028 715e32adf6e5db08be78129f714a5f70 ""
+  "../images/ubidots_create_variable.png" 1717340416 45952 3e830157605d83b3daf03d44dc6397fb ""
   "../images/ubidots_obtener_token.png" 1715418599 31520 d83379d33cc785f40e7e1d03e31f78f8 ""
   "../images/volumen_docker.png" 1717314385 69506 f5c223f46d5b9d1f9d3d9364e0fc13b0 ""
   "C:/Program Files/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1233951848 1004 54797486969f23fa377b128694d548df ""
@@ -126,12 +126,12 @@
   "C:/Users/Usuario/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1654177852 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/Usuario/AppData/Local/MiKTeX/fonts/pk/ljfour/public/cbgreek/dpi600/grmn0900.pk" 1715347291 23768 d4f938ddf35e059c5a5160eb146cc0f6 ""
   "C:/Users/Usuario/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1654177860 10237151 1c1033d6876729a9da1e97295fb67b6e ""
-  "Lectura de llaves RFID-RC522.aux" 1717321052 10231 46bf6841e80056fd78f559f4850b2f89 "pdflatex"
-  "Lectura de llaves RFID-RC522.bbl" 1717320826 755 6fd72db67ee6e517ab9d4d429d6c11d9 "bibtex Lectura de llaves RFID-RC522"
-  "Lectura de llaves RFID-RC522.out" 1717321052 4164 3e12c6ad1a9702d7bf0eb768a7010872 "pdflatex"
-  "Lectura de llaves RFID-RC522.tex" 1717321047 32737 b987892b57d1c00455340e0ac0a95e94 ""
-  "Lectura de llaves RFID-RC522.toc" 1717321052 2254 927ff7eed2bf25031fd0b1341b3f962b "pdflatex"
-  "c:/Users/Usuario/Desktop/Tercero B/IDC/Lectura-de-llaves-RFID-RC522/memoria/Lectura de llaves RFID-RC522.tex" 1717321047 32737 b987892b57d1c00455340e0ac0a95e94 ""
+  "Lectura de llaves RFID-RC522.aux" 1717341463 10231 1c3db415754b003c3dea5886a4a16ab6 "pdflatex"
+  "Lectura de llaves RFID-RC522.bbl" 1717340849 755 6fd72db67ee6e517ab9d4d429d6c11d9 "bibtex Lectura de llaves RFID-RC522"
+  "Lectura de llaves RFID-RC522.out" 1717341463 4164 3e12c6ad1a9702d7bf0eb768a7010872 "pdflatex"
+  "Lectura de llaves RFID-RC522.tex" 1717341454 33028 6e8d3d47d80d1877c4c3dc69d1ef89bc ""
+  "Lectura de llaves RFID-RC522.toc" 1717341463 2254 2c293932ee7d2c5fa390274e5481ae7c "pdflatex"
+  "c:/Users/Usuario/Desktop/Tercero B/IDC/Lectura-de-llaves-RFID-RC522/memoria/Lectura de llaves RFID-RC522.tex" 1717341454 33028 6e8d3d47d80d1877c4c3dc69d1ef89bc ""
   (generated)
   "Lectura de llaves RFID-RC522.aux"
   "Lectura de llaves RFID-RC522.log"

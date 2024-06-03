@@ -4,7 +4,7 @@
 \contentsline {section}{\numberline {3}Software utilizado}{3}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Microcontrolador}{3}{subsection.3.1}%
 \contentsline {subsection}{\numberline {3.2}Servidor}{3}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Ubidots}{3}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.3}Ubidots}{4}{subsection.3.3}%
 \contentsline {section}{\numberline {4}Pasos para realizar el proyecto}{4}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Paso 1: Preintstalación de software necesario}{4}{subsection.4.1}%
 \contentsline {subsection}{\numberline {4.2}Paso 2: Montaje circuito}{5}{subsection.4.2}%
