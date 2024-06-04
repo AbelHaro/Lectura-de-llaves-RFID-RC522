@@ -279,7 +279,23 @@ The circuit assembly should look like the following figure:
 	\caption{\label{fig:circuito}Project circuit diagram.}
 \end{figure}
 
-\subsection{Step 3: Project Execution}
+\subsection{Step 3: Mobile Application Configuration}
+To configure the mobile application, follow these steps:
+\begin{enumerate}
+    \item Install the \href{https://play.google.com/store/apps/details?id=de.kai_morich.serial_usb_terminal&pcampaignid=web_share}{Serial Bluetooth Terminal} app on your mobile device.
+    \item Pair the Raspberry Pi Pico WH with the mobile device via Bluetooth.
+    \item Open the Serial Bluetooth Terminal app and connect to the Raspberry Pi Pico WH.
+    \item Send the message \texttt{``ADD\_USER\_REGISTER''} to the Raspberry Pi Pico WH to change the mode to user registration.
+    \item Send the message \texttt{``ADD\_TIME\_REGISTRY''} to the Raspberry Pi Pico WH to change the mode to access registration.
+\end{enumerate}
+This is how it's shown in the Serial Bluetooth Terminal app:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{../images/serial_bluetooth_terminal.jpeg}
+    \caption{\label{fig:serial_bluetooth_terminal}Serial Bluetooth Terminal app.}
+\end{figure}
+
+\subsection{Step 4: Project Execution}
 To execute the project, follow these steps:
 \begin{enumerate}
 	\item Connect the Raspberry Pi Pico WH to the computer.
