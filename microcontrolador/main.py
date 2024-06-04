@@ -38,11 +38,10 @@ if __name__ == '__main__':
     # Connect to WiFi
     wifi.connect()
 
-    try:
-        if sp.is_connected():
-            sp.on_write(on_rx)  # Register callback for BLE data reception
-            
+    try:    
         while True:
+            if sp.is_connected():
+                sp.on_write(on_rx)  # Register callback for BLE data reception
             # Read UID from sensor
             uid = sensor.read_sensor()
             
