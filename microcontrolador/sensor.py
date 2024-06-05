@@ -1,8 +1,5 @@
-import bluetooth  # Bluetooth module
-from ble.ble_simple_peripheral import BLESimplePeripheral  # BLE module
 from lib.mfrc522.mfrc522 import MFRC522  # RFID reader module
 import time  # Time-related functions
-import data_sending_api as sender  # Custom API module for data sending
 
 def read_sensor() -> str:
     """
@@ -19,9 +16,6 @@ def read_sensor() -> str:
     try:
         i = 0
         while True:
-            i = i + 1
-            print(str(i) + ' ' + MODE)  # Print iteration count and current mode
-
             lector.init()  # Initialize the RFID reader
             (stat, tag_type) = lector.request(lector.REQIDL)  # Request tag detection
 
