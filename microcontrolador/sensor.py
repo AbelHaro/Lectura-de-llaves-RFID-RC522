@@ -14,7 +14,6 @@ def read_sensor() -> str:
     print("RFID sensor active...\n")
 
     try:
-        i = 0
         while True:
             lector.init()  # Initialize the RFID reader
             (stat, tag_type) = lector.request(lector.REQIDL)  # Request tag detection
