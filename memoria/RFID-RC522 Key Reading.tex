@@ -22,6 +22,8 @@
 \usepackage{xcolor}
 \usepackage{natbib}
 \usepackage{hyperref}
+\usepackage{tocloft}
+
 
 \pdfinfo{
   /Title (RFID-RC522 Key Reading)
@@ -156,7 +158,7 @@ The following software was used for the project.
 \subsection{Microcontroller}
 MicroPython was used as the programming language for the Raspberry Pi Pico WH microcontroller.
 To establish and manage Bluetooth communication on the microcontroller, the \href{https://github.com/micropython/micropython/tree/master/examples/bluetooth}{BLE (Bluetooth Low Energy) libraries} \cite{micropythonBluetoothExamples} were utilized.
-For the mobile device, the \href{https://play.google.com/store/apps/details?id=de.kai_morich.serial_usb_terminal&pcampaignid=web_share}{Serial Bluetooth Terminal} app \cite{sam2023ble} available on Play Store was used. For reading RFID keys and cards, the \href{https://github.com/danjperron/micropython-mfrc522/blob/master/mfrc522.py}{MFRC522 library} \cite{danjperron2022mfrc522} was employed.
+For the communication of the mobile device with the microcontroller, the \href{https://play.google.com/store/apps/details?id=de.kai_morich.serial_usb_terminal&pcampaignid=web_share}{Serial Bluetooth Terminal} app \cite{sam2023ble} available on Play Store was used. For reading RFID keys and cards, the \href{https://github.com/danjperron/micropython-mfrc522/blob/master/mfrc522.py}{MFRC522 library} \cite{danjperron2022mfrc522} was employed.
 In communication with the server, a REST API was implemented to enable structured data exchange. Finally, the standard machine library was used to turn LEDs on and off.
 
 \subsection{Server}
@@ -178,7 +180,6 @@ The following steps should be followed to complete the project.
     \item Install \href{https://docs.docker.com/get-docker/}{Docker}.
     \item Install \href{https://kinsta.com/es/base-de-conocimiento/instalar-python/}{Python interpreter}.
 \end{enumerate}
-
 
 \textbf{File Installation on Raspberry Pi Pico WH:}
 \begin{enumerate}
@@ -311,6 +312,9 @@ This is how it's shown in Ubidots:
     \includegraphics[width=1\linewidth]{../images/ubidots_visualizacion.png}
     \caption{\label{fig:ubidots_visualizacion}Ubidots data visualization.}
 \end{figure}
+
+In the variable \texttt{``add\_user\_register''} shows the user UID and the date of the registration.
+In the variable \texttt{``add\_time\_registry''} shows the user UID, the date of the access, and a column \texttt{``entered''}, which is 1 if the user was registered and 0 if not.
 
 \section{Project Programming}
 In this section, the code of the main project files is detailed.
@@ -846,6 +850,9 @@ User registration and access data has been successfully sent to Ubidots for real
 The application has been successfully tested and user registration and access have been correctly recorded. 
 
 Future work includes improving the system's security by encrypting data and scalability of the system with multiple Raspberry Pi Pico WHs and RFID readers communicating with the server. The technology for reading RFID keys and cards could also be changed to NFC, a facial recognition system, or fingerprint recognition to enhance the system's security.
+
+\newpage
+\listoffigures
 
 \addcontentsline{toc}{section}{References} % Add the References section to the table of contents
 \bibliographystyle{plain}
