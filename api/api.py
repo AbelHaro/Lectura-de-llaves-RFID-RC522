@@ -118,7 +118,7 @@ def insert_time_registry(time_registry):
         rows = cur.fetchall()
         if len(rows) == 0:
             inserted_time_registry['error'] = "User does not exist, please create it first."
-            return inserted_time_registry # Mirar si borrar
+        
         else: #The user exists, insert the time_registry
             cur.execute("INSERT INTO time_registry (user_registry_tstamp, UID) VALUES (?, ?)",
                         (time_registry['user_registry_tstamp'], time_registry['UID']) )
