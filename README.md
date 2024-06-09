@@ -1,7 +1,5 @@
-Este proyecto consiste en desarrollar un sistema de control de acceso 
-utilizando tecnologías RFID (lector RFID-RC522). El sistema permitirá 
-registrar usuarios y controlar su acceso mediante tarjetas RFID. Para 
-el cambio de modo del lector entre registro o acceso se utilizará 
-comunicación Bluetooth. Los usuarios registrados se mantendrán en una 
-base de datos accesible mediante una API REST dentro de un contenedor. 
-Para la visualización se utilizará Ubidots.
+This project involves developing an access control system using RFID technology (RFID-RC522
+reader). The system will allow user registration and access control using RFID keys and cards. To
+switch the reader mode between registration and access, Bluetooth communication will be used. Registered users and accesses will be stored in a database accessible via a REST API within a container. For
+visualization, Ubidots will be used. The entire project is available in a GitHub repository RFID-RC522
+Key Reading.
