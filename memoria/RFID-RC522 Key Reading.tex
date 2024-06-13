@@ -280,23 +280,8 @@ The circuit assembly should look like the following figure:
 	\caption{\label{fig:circuito}Project circuit diagram.}
 \end{figure}
 
-\subsection{Step 3: Mobile Application Configuration}
-To configure the mobile application, follow these steps:
-\begin{enumerate}
-    \item Install the \href{https://play.google.com/store/apps/details?id=de.kai_morich.serial_usb_terminal&pcampaignid=web_share}{Serial Bluetooth Terminal} app on your mobile device.
-    \item Pair the Raspberry Pi Pico WH with the mobile device via Bluetooth.
-    \item Open the Serial Bluetooth Terminal app and connect to the Raspberry Pi Pico WH.
-    \item Send the message \texttt{``ADD\_USER\_REGISTER''} to the Raspberry Pi Pico WH to change the mode to user registration.
-    \item Send the message \texttt{``ADD\_TIME\_REGISTRY''} to the Raspberry Pi Pico WH to change the mode to access registration.
-\end{enumerate}
-This is how it's shown in the Serial Bluetooth Terminal app:
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\linewidth]{../images/serial_bluetooth_terminal.jpeg}
-    \caption{\label{fig:serial_bluetooth_terminal}Serial Bluetooth Terminal app.}
-\end{figure}
 
-\subsection{Step 4: Project Execution}
+\subsection{Step 3: Project Execution}
 To execute the project, follow these steps:
 \begin{enumerate}
 	\item Connect the Raspberry Pi Pico WH to the computer.
@@ -315,6 +300,21 @@ This is how it's shown in Ubidots:
 
 In the variable \texttt{``add\_user\_register''} shows the user UID and the date of the registration.
 In the variable \texttt{``add\_time\_registry''} shows the user UID, the date of the access, and a column \texttt{``entered''}, which is 1 if the user was registered and 0 if not.
+
+\subsection{Step 4: Mobile Application Configuration}
+To configure the mobile application, follow these steps:
+\begin{enumerate}
+    \item Install the \href{https://play.google.com/store/apps/details?id=de.kai_morich.serial_usb_terminal&pcampaignid=web_share}{Serial Bluetooth Terminal} app on your mobile device.
+    \item Open the Serial Bluetooth Terminal app and connect to the Raspberry Pi Pico WH.
+    \item Send the message \texttt{``ADD\_USER\_REGISTER''} to the Raspberry Pi Pico WH to change the mode to user registration.
+    \item Send the message \texttt{``ADD\_TIME\_REGISTRY''} to the Raspberry Pi Pico WH to change the mode to access registration.
+\end{enumerate}
+This is how it's shown in the Serial Bluetooth Terminal app:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{../images/serial_bluetooth_terminal.jpeg}
+    \caption{\label{fig:serial_bluetooth_terminal}Serial Bluetooth Terminal app.}
+\end{figure}
 
 \section{Project Programming}
 In this section, the code of the main project files is detailed.
@@ -574,7 +574,7 @@ Only the functions for user registration \texttt{``insert\_user\_register()''}, 
             conn.close()
         return inserted_user
     
-        def get_user_register_by_uid(uid):
+    def get_user_register_by_uid(uid):
         """
         Retrieves a user record from the 'user_register' table based on the provided UID.
     
@@ -602,7 +602,7 @@ Only the functions for user registration \texttt{``insert\_user\_register()''}, 
             user = {}
         return user
     
-        def add_user_ubidots(uid):
+    def add_user_ubidots(uid):
         """
         Sends an HTTP POST request to Ubidots API to add a user registration.
     
@@ -626,6 +626,12 @@ Only the functions for user registration \texttt{``insert\_user\_register()''}, 
             json=data
         )
         return request.status_code
+    
+    if __name__ == "__main__":
+
+        app = Flask(__name__)
+
+        ...
         
         @app.route('/api/user_register/<uid>', methods=['GET'])
         def api_get_user_register_by_id(uid):
@@ -637,6 +643,7 @@ Only the functions for user registration \texttt{``insert\_user\_register()''}, 
             return jsonify(insert_user_register(user))
     
         app.run(host="0.0.0.0")
+
 \end{lstlisting}
 \captionof{figure}{Code of the file \texttt{``api/api.py''} of the server.}
 
